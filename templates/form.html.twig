@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login Leden{% endblock %}
+
+{% block body %}
+    <h1>Login Leden</h1>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.geboortedatum) }}
+            {{ form_widget(form.geboortedatum, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.geboortedatum) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(form.lidnummer) }}
+            {{ form_widget(form.lidnummer, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.lidnummer) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

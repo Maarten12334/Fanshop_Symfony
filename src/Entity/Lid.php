@@ -11,17 +11,17 @@ class Lid
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(type: Types::BIGINT)]
+    #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $Geboortedatum = null;
+    private ?\DateTimeInterface $geboortedatum = null;
 
     #[ORM\Column(type: Types::BIGINT)]
-    private ?int $Lidnummer = null;
+    private ?string $lidnummer = null;
 
-    #[ORM\Column(type: Types::INTEGER)]
-    private ?int $Keuze = null;
+    #[ORM\Column(type: Types::BIGINT, nullable: true)]
+    private ?string $keuze = null;
 
     public function getId(): ?int
     {
@@ -30,36 +30,36 @@ class Lid
 
     public function getGeboortedatum(): ?\DateTimeInterface
     {
-        return $this->Geboortedatum;
+        return $this->geboortedatum;
     }
 
-    public function setGeboortedatum(\DateTimeInterface $Geboortedatum): self
+    public function setGeboortedatum(\DateTimeInterface $geboortedatum): static
     {
-        $this->Geboortedatum = $Geboortedatum;
+        $this->geboortedatum = $geboortedatum;
 
         return $this;
     }
 
-    public function getLidnummer(): ?int
+    public function getLidnummer(): ?string
     {
-        return $this->Lidnummer;
+        return $this->lidnummer;
     }
 
-    public function setLidnummer(int $Lidnummer): self
+    public function setLidnummer(string $lidnummer): static
     {
-        $this->Lidnummer = $Lidnummer;
+        $this->lidnummer = $lidnummer;
 
         return $this;
     }
 
-    public function getKeuze(): ?int
+    public function getKeuze(): ?string
     {
-        return $this->Keuze;
+        return $this->keuze;
     }
 
-    public function setKeuze(int $Keuze): self
+    public function setKeuze(?string $keuze): static
     {
-        $this->Keuze = $Keuze;
+        $this->keuze = $keuze;
 
         return $this;
     }
