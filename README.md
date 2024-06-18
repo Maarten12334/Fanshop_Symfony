@@ -6,27 +6,33 @@ Ook is het mogelijk om een csv file in te lezen in de database.
 ## Installation
 
 1. **Clone repository**
-   '''bash
+
+   ```bash
    git clone https://github.com/Maarten12334/Taak-Yappa
-   '''
+   ```
+
 2. **Configure .env file**
    Add database settings and app key
 
 3. **Dependencies:**
-   '''bash
+
+   ```bash
    composer install
-   '''
+   ```
 
 4. **Create Database:**
-   '''bash
+
+   ```bash
    php bin/console doctrine:database:create
-   '''
+   ```
 
 5. **Migrations:**
-   '''bash
+
+   ```bash
    php bin/console doctrine:migrations:migrate
-   '''
+   ```
+
 6. **Import CSV file:**
-   '''bash
+   ```bash
    php bin/console app:import-csv "yourcsv.csv"
-   '''
+   ```
