@@ -33,6 +33,9 @@ class LoginController extends AbstractController
                 $session->set('existingLid', true);
                 // Perform any additional actions if needed, e.g., login or redirect
                 return $this->redirectToRoute('lid_success');
+            } else {
+                $this->addFlash('error', 'Lidnummer of geboortedatum is onjuist');
+                return $this->redirectToRoute('login');
             }
         }
 
