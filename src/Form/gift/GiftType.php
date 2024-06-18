@@ -13,7 +13,7 @@ class GiftType extends AbstractType
     {
         $builder
             ->add('choice', ChoiceType::class, [
-                'label' => 'Options',
+                'label' => 'Keuzes:',
                 'choices' => [
                     'Rode Sjaal' => 1,
                     'Zwarte Sjaal' => 2,
