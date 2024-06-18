@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Lid;
-use App\Form\LidType;
+use App\Form\login\LidType;
 use App\Repository\LidRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,17 +29,23 @@ class LoginController extends AbstractController
                 'geboortedatum' => $lid->getGeboortedatum(),
             ]);
 
-            if ($existingLid) {
-                $session->set('existingLid', true);
-                // Perform any additional actions if needed, e.g., login or redirect
-                return $this->redirectToRoute('lid_success');
-            } else {
+            if (!$existingLid) {
                 $this->addFlash('error', 'Lidnummer of geboortedatum is onjuist');
                 return $this->redirectToRoute('login');
+            } else {
+                $session->set('existingLid', true);
+                $session->set('lidId', $existingLid->getId());
+                $keuze = $existingLid->getKeuze();
+                if ($keuze) {
+                    $this->addFlash('error', 'U hebt al een geschenk geselecteerd');
+                    return $this->redirectToRoute('login');
+                }
+                return $this->redirectToRoute('login_success');
             }
         }
 
-        return $this->render('form.html.twig', [
+
+        return $this->render('login/login.html.twig', [
             'form' => $form->createView(),
         ]);
     }

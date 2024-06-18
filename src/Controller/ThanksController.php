@@ -12,6 +12,9 @@ class ThanksController extends AbstractController
     #[Route('/thanks', name: 'thanks')]
     public function index(SessionInterface $session): Response
     {
+        if (!$session->get('existingLid')) {
+            return $this->redirectToRoute('login');
+        }
 
         // Optionally, clear the session variable if you only want to allow one-time access
         $session->remove('existingLid');
