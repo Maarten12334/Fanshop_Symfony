@@ -19,7 +19,7 @@ class GiftController extends AbstractController
     #[Route('/login/success', name: 'login_success')]
     public function success(SessionInterface $session, Request $request, EntityManagerInterface $entityManager): Response
     {
-        // Check if the session variable exists and is true
+        // Check if the user is logged in
         if (!$session->get('existingLid')) {
             return $this->redirectToRoute('login');
         }
@@ -30,6 +30,7 @@ class GiftController extends AbstractController
 
             // Handle form submission
             $data = $form->getData();
+
             $lidId = $session->get('lidId');
             $lid = $entityManager->getRepository(Lid::class)->find($lidId);
             if ($lid) {

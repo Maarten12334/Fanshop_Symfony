@@ -22,11 +22,4 @@ class LidType extends AbstractType
                 'label' => 'Lidnummer',
             ]);
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Lid::class,
-        ]);
-    }
 }

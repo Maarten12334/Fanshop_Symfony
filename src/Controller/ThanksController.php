@@ -12,11 +12,12 @@ class ThanksController extends AbstractController
     #[Route('/thanks', name: 'thanks')]
     public function index(SessionInterface $session): Response
     {
+        //check if user is logged in
         if (!$session->get('existingLid')) {
             return $this->redirectToRoute('login');
         }
 
-        // Optionally, clear the session variable if you only want to allow one-time access
+        // Allow one-time access
         $session->remove('existingLid');
 
         return $this->render('thanks/index.html.twig', [
