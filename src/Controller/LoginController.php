@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class LoginController extends AbstractController
 {
-    #[Route('/{path}', name: 'login', requirements: ['path' => '.*'], defaults: ['path' => null])]
+    #[Route('/login', name: 'login')]
     public function new(Request $request, LidRepository $lidRepository, SessionInterface $session): Response
     {
         $lid = new Lid();
