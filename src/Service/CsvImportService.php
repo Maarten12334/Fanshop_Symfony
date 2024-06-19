@@ -4,16 +4,19 @@ namespace App\Service;
 
 use App\Entity\Lid;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\LidRepository;
 
 class CsvImportService
 {
     private EntityManagerInterface $entityManager;
     private CsvParser $csvParser;
+    private LidRepository $lidRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, CsvParser $csvParser)
+    public function __construct(EntityManagerInterface $entityManager, CsvParser $csvParser, LidRepository $lidRepository)
     {
         $this->entityManager = $entityManager;
         $this->csvParser = $csvParser;
+        $this->lidRepository = $lidRepository;
     }
 
     public function import(string $filePath): void
@@ -21,12 +24,19 @@ class CsvImportService
         $rows = $this->csvParser->parse($filePath);
 
         foreach ($rows as $row) {
-            $lid = new Lid();
-            $lid->setGeboortedatum(new \DateTime($row['geboortedatum']));
-            $lid->setLidnummer($row['lidnummer']);
-            $lid->setKeuze($row['keuze'] ?: null);
+            // Check for existing Lid with the same geboortedatum and lidnummer
+            $existingLid = $this->lidRepository->findOneBy([
+                'geboortedatum' => new \DateTime($row['geboortedatum']),
+                'lidnummer' => $row['lidnummer']
+            ]);
 
-            $this->entityManager->persist($lid);
+            if (!$existingLid) {
+                $lid = new Lid();
+                $lid->setGeboortedatum(new \DateTime($row['geboortedatum']));
+                $lid->setLidnummer($row['lidnummer']);
+
+                $this->entityManager->persist($lid);
+            } // Skip duplicates
         }
 
         $this->entityManager->flush();
