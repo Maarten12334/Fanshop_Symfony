@@ -1,18 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kies uw geschenk!{% endblock %}
+{% block title %}Kies uw geschenk!
+{% endblock %}
 
 {% block body %}
-    <h1>Kies een geschenk</h1>
+	<h1>Kies een geschenk</h1>
 
-    {{ form_start(form) }}
-        <div class="form-group">
-            {{ form_label(form.choice) }}
-            <div class="radio-buttons">
-                {{ form_widget(form.choice) }}
-            </div>
-            {{ form_errors(form.choice) }}
-        </div>
-        <button type="submit" class="btn btn-primary">Verzenden</button>
-    {{ form_end(form) }}
+	{{ form_start(form) }}
+	<div class="form-group">
+		{{ form_label(form.choice) }}
+		<div class="radio-buttons">
+			{% for child in form.choice %}
+				<label>
+					{{ form_widget(child) }}
+					<img src="{{ child.vars.attr['data-image'] }}" alt="{{ child.vars.label }}" width="50" height="50">
+					{{ child.vars.label|trans }}
+				</label>
+			{% endfor %}
+		</div>
+		{{ form_errors(form.choice) }}
+	</div>
+	<button type="submit" class="btn btn-primary">Verzenden</button>
+	{{ form_end(form) }}
 {% endblock %}
